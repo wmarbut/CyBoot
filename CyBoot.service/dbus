@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=com.whitm.cyboot.service
+Exec=/var/usr/sbin/com.whitm.cyboot.service -n /media/cryptofs/apps/usr/palm/services/com.whitm.cyboot.service

@@ -1,0 +1,30 @@
+{
+	"id": "com.whitm.cyboot.service",
+	"description": "Cyanogen Android Boot Command",
+	"activityTimeout" : 30,
+	"services": [{
+		"name": "com.whitm.cyboot.service",
+		"description": "control boot and boot defaults for moboot bootloader",
+		"commands": [
+			{
+				"name": "readSettings",
+				"assistant": "ReadSettingsAssistant",
+				"public": true,
+				"subscribe": true,
+				"watch": true
+			},
+			{
+				"name": "writeSettings",
+				"assistant": "WriteSettingsAssistant",
+				"public": true,
+				"subscribe": true,
+				"watch": true
+			},
+			{
+				"name": "restart",
+				"assistant": "RestartAssistant",
+				"public": true
+			}
+		]
+	 }]
+} 

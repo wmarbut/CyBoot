@@ -1,0 +1,10 @@
+{
+	"id": "com.whitm.cyboot.app",
+	"version": "0.9.0",
+	"vendor": "Whit",
+	"type": "web",
+	"main": "index.html",
+	"title": "CyBoot",
+	"icon": "icon.png",
+	"uiRevision": 2
+}

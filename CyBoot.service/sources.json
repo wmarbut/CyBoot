@@ -1,0 +1,16 @@
+[{
+    "library": {
+        "name": "foundations",
+        "version" : "1.0"
+      }
+},
+{
+	"source": "ReadSettingsAssistant.js",
+},
+{
+	"source": "WriteSettingsAssistant.js"
+},
+{
+	"source": "RestartAssistant.js"
+}
+]

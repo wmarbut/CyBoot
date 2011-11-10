@@ -1,0 +1,14 @@
+{
+    "role": {
+    "exeName":"/var/usr/sbin/com.whitm.cyboot.service",
+    "type": "regular",
+    "allowedNames": ["com.whitm.cyboot.service"]
+    },
+    "permissions": [
+        {
+         "service":"com.whitm.cyboot.service",
+		 "inbound":["*"],
+         "outbound":["*"]
+        }
+    ]
+}

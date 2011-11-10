@@ -1,0 +1,12 @@
+{
+  "id": "com.whitm.cyboot",
+  "package_format_version": 2,
+  "loc_name": "CyBoot",
+  "version": "0.9.0",
+  "icon": "icon.png",
+  "miniicon": "icon.png",
+  "vendor": "Whit",
+  "vendorurl": "whitmarbut.com",
+  "app": "com.whitm.cyboot.app",
+  "services": ["com.whitm.cyboot.service"]
+}
