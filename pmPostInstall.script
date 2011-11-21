@@ -1,0 +1,49 @@
+#!/bin/sh
+
+ID=com.whitm.cyboot.service
+SERVICES_PATH=/media/cryptofs/apps/usr/palm/services/$ID
+
+#Quit the service
+/usr/bin/luna-send -n 1 palm://${ID}/__quit '{}'
+
+if [ -z "$IPKG_OFFLINE_ROOT" ]; then
+	/usr/sbin/rootfs_open -w
+fi
+
+#make directories in the rare event they don't exist
+/bin/mkdir -p /var/palm/ls2/services/prv
+/bin/mkdir -p /var/palm/ls2/services/pub
+/bin/mkdir -p /var/palm/ls2/roles/pub
+/bin/mkdir -p /var/palm/ls2/roles/prv
+/bin/mkdir -p /var/usr/sbin/
+
+#copy dbus service file
+/bin/cp -f $SERVICES_PATH/dbus /var/palm/ls2/services/prv/$ID.service
+/bin/cp -f $SERVICES_PATH/dbus /var/palm/ls2/services/pub/$ID.service
+
+if [ -e /var/palm/ls2/services/pub/$ID ]; then
+	rm -f /var/palm/ls2/services/pub/$ID	
+fi
+if [ -e /var/palm/ls2/services/prv/$ID ]; then
+	rm -f /var/palm/ls2/services/prv/$ID
+fi
+
+
+#copy the roles files
+/bin/cp -f $SERVICES_PATH/role.json /var/palm/ls2/roles/prv/$ID.json
+/bin/cp -f $SERVICES_PATH/role.json /var/palm/ls2/roles/pub/$ID.json
+
+#create the unjailed service
+sed -e "s|jail=on|jail=off|" -e "s|SERVICE_PATH=\$1|set ${SERVICES_PATH}\n\nSERVICE_PATH=\$1|" /usr/bin/run-js-service > /var/usr/sbin/${ID}
+chmod ugo+x /var/usr/sbin/${ID}
+
+#Quit the service again for good measure
+/usr/bin/luna-send -n 1 palm://${ID}/__quit '{}'
+
+#rescan
+/usr/bin/ls-control scan-services || true
+
+/bin/cp -f $SERVICES_PATH/dbus /var/palm/ls2/services/pub/$ID
+/bin/cp -f $SERVICES_PATH/dbus /var/palm/ls2/services/prv/$ID
+
+exit 0

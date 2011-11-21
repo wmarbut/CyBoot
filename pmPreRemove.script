@@ -1,0 +1,33 @@
+#!/bin/sh
+BASE_ID=com.whitm.cyboot
+ID=com.whitm.cyboot.service
+SERVICES_PATH=/media/cryptofs/apps/usr/palm/services/$ID
+APP_PATH=/media/cryptofs/apps/usr/palm/applications/$BASE_ID.app
+PACKAGE_PATH=/media/cryptofs/apps/usr/palm/packages/$BASE_ID
+
+#remount root using technique that won't cause the random remounting error
+if [ -z "$IPKG_OFFLINE_ROOT" ]; then
+	/usr/sbin/rootfs_open -w
+fi
+
+#remove dbus service file
+/bin/rm -f /var/palm/ls2/services/prv/$ID.service
+/bin/rm -f /var/palm/ls2/services/pub/$ID.service
+if [ -e /var/palm/ls2/services/pub/$ID ]; then
+	/bin/rm -f /var/palm/ls2/services/pub/$ID
+fi
+if [ -e /var/palm/ls2/services/prv/$ID ]; then
+	/bin/rm -f /var/palm/ls2/services/prv/$ID
+fi
+if [ -e $APP_PATH ]; then
+	rm -rf $APP_PATH
+fi
+if [ -e $PACKAGE_PATH ]; then
+	rm -rf $PACKAGE_PATH
+fi
+
+/bin/rm -f /var/palm/ls2/roles/pub/$ID.json
+/bin/rm -f /var/palm/ls2/roles/prv/$ID.json
+/bin/rm -f /var/usr/sbin/${ID}
+
+exit 0

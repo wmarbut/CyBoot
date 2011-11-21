@@ -1,0 +1,4 @@
+Makefile
+icon.psd
+.hgtags
+*.ipk
